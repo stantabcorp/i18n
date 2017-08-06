@@ -1,0 +1,18 @@
+{
+    "name": "stantabcorp/i18n",
+    "description": "Internationalization library for PHP",
+    "type": "library",
+    "homepage": "https://github.com/stantabcorp/i18n",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Thibault Junin",
+            "email": "spamfree@thibaultjunin.fr"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-0": { "i18n": "src/" }
+    }
+}
