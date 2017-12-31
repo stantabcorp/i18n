@@ -5,7 +5,7 @@
     use Twig\Extension\AbstractExtension;
     use Twig\TwigFilter;
 
-    class i18nTwigExtension extends AbstractExtension
+    class i18nTwigExtension extends \Twig_Extension
     {
 
         private $i18n;
@@ -14,20 +14,21 @@
             $this->i18n = $i18n;
         }
 
-        public function getFilters()
+        public function getFunctions()
         {
             return array(
-                new TwigFilter('i18n', array($this, 'i18nFilter')),
+                new \Twig_SimpleFunction('i18n', [$this, 'i18n']),
             );
         }
 
-        public function i18nFilter($word)
+
+        public function i18n($word)
         {
             try{
                 $wo = $this->i18n->get($word);
                 return $wo;
             }catch(\Exception $e){
-                return "i18n.error";
+                return "i18n.error ($word)";
             }
         }
     }
