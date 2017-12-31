@@ -52,7 +52,7 @@
             }elseif(isset($default[$word])){
                 return $default[$word];
             }else{
-                throw new Exception("Word not found !");
+                throw new \Exception("Word $word not found !");
             }
         }
 

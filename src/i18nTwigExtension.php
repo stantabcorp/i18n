@@ -1,6 +1,6 @@
 <?php 
 
-    namespace i18n\Twig;
+    namespace i18n;
 
     use Twig\Extension\AbstractExtension;
     use Twig\TwigFilter;
