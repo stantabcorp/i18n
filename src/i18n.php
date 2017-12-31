@@ -10,6 +10,8 @@
     * @license proprietary
     */
 
+    namespace i18n;
+
     class i18n{
 
         private $lang;
@@ -56,6 +58,9 @@
 
         private function autoDetect($allowed){
             if($allowed == null){
+                return $this->default;
+            }
+            if(!isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
                 return $this->default;
             }
             $language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];

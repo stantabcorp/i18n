@@ -13,6 +13,6 @@
     "minimum-stability": "stable",
     "require": {},
     "autoload": {
-        "psr-0": { "i18n": "src/" }
+        "psr-4": { "i18n\\": "src/" }
     }
 }
