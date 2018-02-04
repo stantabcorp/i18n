@@ -3,7 +3,7 @@
     "description": "Internationalization library for PHP",
     "type": "library",
     "homepage": "https://github.com/stantabcorp/i18n",
-    "license": "https://stantabcorp.com/license",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Thibault Junin",
