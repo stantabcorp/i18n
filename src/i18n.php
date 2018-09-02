@@ -5,7 +5,7 @@
     *
     * Internationalization library for PHP 
     * @author Thibault JUNIN <spamfree@thibaultjunin.fr>
-    * @copyright STAN-TAb Corp. 2017
+    * @copyright STAN-TAb Corp. 2017 - 2018
     * @link https://github.com/stantabcorp/i18n
     * @license proprietary
     */
@@ -17,31 +17,32 @@
         private $lang;
         private $default;
         private $allow;
+        private $folder = "./i18n/";
 
         public function __construct($lang, $default, array $allow){
             $this->default = $default;
             $this->lang = ($lang === true) ? $this->autoDetect($allow) : $lang;
             $this->allow = $allow;
 
-            if(!file_exists("./i18n/")){
-                mkdir("./i18n/");
+            if(!file_exists($this->folder)){
+                mkdir($this->folder);
             }
 
-            if(!file_exists("./i18n/".$this->lang.".ini")){
-                file_put_contents("./i18n/".$this->lang.".ini", "; i18n file \n");
+            if(!file_exists($this->folder . $this->lang . ".ini")){
+                file_put_contents($this->folder . $this->lang . ".ini", "; i18n file \n");
             }
 
-            if(!file_exists("./i18n/".$this->default.".ini")){
+            if(!file_exists($this->folder . $this->default . ".ini")){
                 throw new Exception("Default language not found !");
             }
         }
 
         private function getLangArray(){
-            return parse_ini_file("./i18n/".$this->lang.".ini");
+            return parse_ini_file($this->folder . $this->lang . ".ini");
         }
 
         private function getDefaultArray(){
-            return parse_ini_file("./i18n/".$this->default.".ini");
+            return parse_ini_file($this->folder . $this->default . ".ini");
         }
 
         public function get($word){
@@ -88,6 +89,14 @@
             }else{
                 $this->lang = $this->default;
             }
+        }
+
+        public function setFolder($folder){
+            $this->folder = $folder;
+        }
+
+        public function getFolder(){
+            return $this->folder;
         }
 
     }
