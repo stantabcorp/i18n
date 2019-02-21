@@ -84,10 +84,14 @@
         }
 
         public function setLang($lang){
-            if(in_array($lang, $this->allow)){
-                $this->lang = $lang;
+            if($lang === true){
+                $this->lang = $this->autoDetect($this->allow);
             }else{
-                $this->lang = $this->default;
+                if(in_array($lang, $this->allow)){
+                    $this->lang = $lang;
+                }else{
+                    $this->lang = $this->default;
+                }
             }
         }
 
@@ -105,6 +109,14 @@
         
         public function getAvailableLanguages(){
             return $this->allow;
+        }
+
+        public function setDefaultLanguage($default){
+            $this->default = $default;
+        }
+        
+        public function getDefaultLanguage(){
+            return $this->default;
         }
 
     }
