@@ -99,4 +99,12 @@
             return $this->folder;
         }
 
+        public function setAvailableLanguages(array $languages){
+            $this->allow = $languages;
+        }
+        
+        public function getAvailableLanguages(){
+            return $this->allow;
+        }
+
     }
