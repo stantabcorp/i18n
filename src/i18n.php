@@ -18,11 +18,13 @@
         private $default;
         private $allow;
         private $folder = "./i18n/";
+        private $error;
 
-        public function __construct($lang, $default, array $allow){
+        public function __construct($lang, $default, array $allow, $error = true){
             $this->default = $default;
             $this->lang = ($lang === true) ? $this->autoDetect($allow) : $lang;
             $this->allow = $allow;
+            $this->error = $error;
 
             if(!file_exists($this->folder)){
                 mkdir($this->folder);
@@ -33,7 +35,9 @@
             }
 
             if(!file_exists($this->folder . $this->default . ".ini")){
-                throw new Exception("Default language not found !");
+                if($this->error){
+                    throw new \Exception("Default language not found !");
+                }
             }
         }
 
@@ -53,7 +57,11 @@
             }elseif(isset($default[$word])){
                 return $default[$word];
             }else{
-                throw new \Exception("Word $word not found !");
+                if($this->error){
+                    throw new \Exception("Word $word not found !");
+                }else{
+                    return "i18n.error ($word)";
+                }
             }
         }
 
