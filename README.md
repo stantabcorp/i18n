@@ -13,7 +13,7 @@ This library allows you to translate your website with ini files, Auto Detecting
 
 ### Information
 
-i18n will create a folder named "i18n" please make sur it is readable 
+i18n will create a folder named "i18n" please make sure it is readable 
 
 ### Installation
 
@@ -22,7 +22,7 @@ i18n will create a folder named "i18n" please make sur it is readable
 
 ### Initialization
 
-In the i18n constructor your must have **3** parameters:
+In the i18n constructor your must-have **3** parameters:
 1. The language you want to display your website **or** true to use AutoDetect
 2. The default language
 3. An array of available languages
