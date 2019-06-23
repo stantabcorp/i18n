@@ -5,7 +5,7 @@
     *
     * Internationalization library for PHP 
     * @author Thibault JUNIN <spamfree@thibaultjunin.fr>
-    * @copyright STAN-TAb Corp. 2017 - 2018
+    * @copyright STAN-TAb Corp. 2017 - 2019
     * @link https://github.com/stantabcorp/i18n
     * @license proprietary
     */
@@ -19,12 +19,17 @@
         private $allow;
         private $folder = "./i18n/";
         private $error;
+        private $sections;
 
-        public function __construct($lang, $default, array $allow, $error = true){
+        public function __construct($lang, $default, array $allow, array $options = []){
             $this->default = $default;
             $this->lang = ($lang === true) ? $this->autoDetect($allow) : $lang;
             $this->allow = $allow;
-            $this->error = $error;
+            $this->error = isset($options['error']) ? $options['error'] : true;
+            $this->sections = isset($options['sections']) ? $options['sections'] : false;
+            if(isset($options['path'])){
+                $this->folder = $options['path'];
+            }
 
             if(!file_exists($this->folder)){
                 mkdir($this->folder);
@@ -42,14 +47,24 @@
         }
 
         private function getLangArray(){
-            return parse_ini_file($this->folder . $this->lang . ".ini");
+            return parse_ini_file($this->folder . $this->lang . ".ini", $this->sections);
         }
 
         private function getDefaultArray(){
-            return parse_ini_file($this->folder . $this->default . ".ini");
+            return parse_ini_file($this->folder . $this->default . ".ini", $this->sections);
         }
 
         public function get($word){
+            if($this->sections){
+                if(strpos($word, "[") && strpos($word, "]")){
+                    $w = explode("[", $word);
+                    return $this->getWordWithSection($w[0], rtrim($w[1], "]"));
+                }
+            }
+            return $this->getWordWithoutSection($word);
+        }
+
+        private function getWordWithoutSection($word){
             $lang = $this->getLangArray();
             $default = $this->getDefaultArray();
             if(isset($lang[$word])){
@@ -61,6 +76,22 @@
                     throw new \Exception("Word $word not found !");
                 }else{
                     return "i18n.error ($word)";
+                }
+            }
+        }
+
+        private function getWordWithSection($section, $word){
+            $lang = $this->getLangArray();
+            $default = $this->getDefaultArray();
+            if(isset($lang[$section][$word])){
+                return $lang[$section][$word];
+            }elseif(isset($default[$section][$word])){
+                return $default[$section][$word];
+            }else{
+                if($this->error){
+                    throw new \Exception("Word {$section}.{$word} not found !");
+                }else{
+                    return "i18n.error ({$section}.{$word})";
                 }
             }
         }
