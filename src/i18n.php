@@ -104,7 +104,7 @@
                 return $this->default;
             }
             $language = $_SERVER['HTTP_ACCEPT_LANGUAGE'];
-		    $language = $language{0}.$language{1};
+		    $language = $language[0].$language[1];
             if(in_array($language, $allowed)){
                 return $language;
             }
