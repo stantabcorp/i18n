@@ -5,7 +5,7 @@
     use Twig\Extension\AbstractExtension;
     use Twig\TwigFilter;
 
-    class i18nTwigExtension extends \Twig_Extension
+    class i18nTwigExtension extends \Twig\Extension\AbstractExtension
     {
 
         private $i18n;
@@ -17,7 +17,7 @@
         public function getFunctions()
         {
             return array(
-                new \Twig_SimpleFunction('i18n', [$this, 'i18n']),
+                new \Twig\TwigFunction('i18n', [$this, 'i18n']),
             );
         }
 
