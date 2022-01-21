@@ -1,1 +1,6 @@
-/vendor/
+vendor
+.idea
+scratch.php
+clover.xml
+.phpunit.cache
+i18n

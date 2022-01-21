@@ -1,18 +1,36 @@
 {
-    "name": "stantabcorp/i18n",
-    "description": "Internationalization library for PHP",
-    "type": "library",
-    "homepage": "https://github.com/stantabcorp/i18n",
-    "license": "proprietary",
-    "authors": [
-        {
-            "name": "Thibault Junin",
-            "email": "spamfree@thibaultjunin.fr"
-        }
-    ],
-    "minimum-stability": "stable",
-    "require": {},
-    "autoload": {
-        "psr-4": { "i18n\\": "src/" }
+  "name": "stantabcorp/i18n",
+  "description": "Internationalization library for PHP",
+  "type": "library",
+  "homepage": "https://github.com/stantabcorp/i18n",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Thibault Junin",
+      "email": "spamfree@thibaultjunin.fr"
     }
+  ],
+  "scripts": {
+    "init_app": "vendor/bin/phinx migrate",
+    "test-ci": "vendor/bin/phpunit --configuration phpunit.xml --coverage-text --colors=never",
+    "test": "vendor/bin/phpunit --configuration phpunit.xml",
+    "lint": "vendor/bin/phpcs src"
+  },
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=7.0",
+    "adbario/php-dot-notation": "^2.2",
+    "ext-intl": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "i18n\\": "src/"
+    }
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^6.0",
+    "phpunit/phpunit": "^9.5",
+    "squizlabs/php_codesniffer": "^3.6",
+    "twig/twig": "^3.3"
+  }
 }
